@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-bladewind::centered-content size="small">
-        <img src="https://barcodeapi.org/api/auto/{{ auth()->user()->id . '=' . $coupon->redeem_id }}" class="mx-auto my-6" >
+        <img src="https://barcodeapi.org/api/128/{{ auth()->user()->id . '=' . $coupon->redeem_id }}" class="mx-auto my-6" >
 
 {{--         <div class="mt-8">
             <img src="https://res.cloudinary.com/de6hiq5n4/image/upload/v1683075785/assets/soldix/dummy%20images/t_ht9sxf.jpg" class="rounded-3xl">
