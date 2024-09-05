@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\Wallet;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class CouponsController extends Controller
 {
@@ -19,8 +20,8 @@ class CouponsController extends Controller
         $coupon = Coupon::find($id);
 
         return (auth()->user()->role_id == Role::IS_USER)
-                    ? view('user.coupon', ['coupon' => $coupon])
-                    : view('user.coupon', ['coupon' => $coupon]);
+                    ? view('user.coupon', compact('coupon'))
+                    : view('user.coupon', compact('coupon'));
     }
 
     public function add()

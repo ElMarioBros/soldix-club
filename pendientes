@@ -1,6 +1,0 @@
-Resolucin de imagenes para cupones === 1920 × 1280 -> 8∶5 ,1920 × 1200 -> 3:2   
-
-index-corporates.blade.php -> CorporatesController::class, 'index'
-    |Al tener un error al registrar un usuario no aparece mensaje de error
-
-Agregar los botones faltantes en vista móvil a la barra de navegación.

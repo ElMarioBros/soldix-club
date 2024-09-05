@@ -13,7 +13,8 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.12",
-        "mkocansey/bladewind": "^2.1"
+        "mkocansey/bladewind": "^2.1",
+        "picqer/php-barcode-generator": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
