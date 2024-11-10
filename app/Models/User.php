@@ -62,4 +62,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Store::class);
     }
+
+    public function card(): HasOne
+    {
+        return $this->hasOne(Card::class);
+    }
+
 }
