@@ -15,9 +15,7 @@
             {{ $coupon->name }}
         </h2>
 
-        <p class="text-xl text-center font-medium">
-            Valido: De lunes a viernes
-        </p>
+        <x-coupon-validity-days :coupon="$coupon"/>
 
         <p class="text-xs mt-6">
             No acumulable con otras promociones. Restringido a un cupón por usuario. Las imagenes son ilustrativas. Todos los productos son sujetos a disponibilidad.
