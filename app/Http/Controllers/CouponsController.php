@@ -31,6 +31,11 @@ class CouponsController extends Controller
 
     public function add_to_wallet($id)
     {
+
+        if(auth()->user()->corporate_id != Wallet::find($id)->corporate_id){
+            return redirect()->route('corporate.brands');
+        }
+        
         return view('admin.coupons.add', ['id' => $id]);
     }
 
@@ -56,6 +61,12 @@ class CouponsController extends Controller
     public function edit($id)
     {
         $coupon = Coupon::find($id);
+        $wallet = $coupon->wallet()->first();
+
+        if(auth()->user()->corporate_id != $wallet->corporate_id){
+            return redirect()->route('corporate.brands');
+        }
+
         return view('admin.coupons.edit', ['coupon' => $coupon]);
     }
 

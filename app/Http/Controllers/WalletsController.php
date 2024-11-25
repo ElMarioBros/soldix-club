@@ -25,6 +25,10 @@ class WalletsController extends Controller
         $brand = $wallet->brand()->first();
         $coupons = $wallet->coupons()->get();
 
+        if(auth()->user()->corporate_id != $brand->corporate_id){
+            return redirect()->route('corporate.brands');
+        }
+
         return view('admin.wallets.view', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand]);
     }
 

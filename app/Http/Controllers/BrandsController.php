@@ -45,6 +45,11 @@ class BrandsController extends Controller
     public function view($id)
     {
         $brand = Brand::find($id);
+
+        if(auth()->user()->corporate_id != $brand->corporate_id){
+            return redirect()->route('corporate.brands');
+        }
+
         $wallets = Wallet::where('brand_id', $id)->get();
 
         return view('admin.brands.view', ['brand' => $brand, 'wallets' => $wallets]);
