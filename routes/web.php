@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified', 'is_corporate'])->group(function () {
     // WALLETS
     Route::get('/corporate/wallets', [WalletsController::class, 'index'])->name('corporate.wallets');
     Route::get('/corporate/wallets/{id}', [WalletsController::class, 'view'])->name('corporate.wallets.view');
+    Route::get('/corporate/wallets/{id}/expired', [WalletsController::class, 'viewExpired'])->name('corporate.wallets.view.expired');
     Route::post('/corporate/wallets/{id}', [WalletsController::class, 'update'])->name('corporate.wallets.update');
     Route::patch('/corporate/wallets/{id}/bulk-date', [WalletsController::class, 'bulkEditDate'])->name('corporate.wallets.bulk.date');
     Route::patch('/corporate/wallets/{id}/bulk-days', [WalletsController::class, 'bulkEditDays'])->name('corporate.wallets.bulk.days');

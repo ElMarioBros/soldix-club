@@ -93,7 +93,7 @@
                     <p class="text-lg text-zinc-600 ml-2 mb-1 font-semibold">Editar información de Cuponera</p>
                     <div class="grid grid-cols-6">
                         <p class="col-span-4 mt-1">Ajusta los detalles y visibilidad de tu cuponera digital. </p>
-                        <button onclick="showModal('update')" class="flex ml-4 mt-2 mb-5 px-3 py-2 bg-yellow-500 hover:bg-yellow-400 rounded-md text-white w-11 m-auto">
+                        <button onclick="showModal('update')" class="flex ml-4 mt-2 mb-5 px-3 py-2 bg-yellow-200 hover:bg-yellow-300 rounded-md text-white w-11 m-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="25" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
@@ -105,7 +105,7 @@
                     <p class="text-lg text-zinc-600 ml-2 font-semibold">Edición Masiva</p>
                     <div class="grid grid-cols-6">
                         <p class="col-span-4 mt-1">Define los días de validez para todos los cupones</p>
-                        <button onclick="showModal('bulkDays')" class="flex mt-2 mb-5 px-3 py-2 bg-red-500 hover:bg-red-600 rounded-md text-white w-11 m-auto">
+                        <button onclick="showModal('bulkDays')" class="flex mt-2 mb-5 px-3 py-2 bg-red-200 hover:bg-red-300 rounded-md text-white w-11 m-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-week" width="20" height="25" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
@@ -118,7 +118,7 @@
                               </svg>
                         </button>
                         <p class="col-span-4 mt-1">Asigna una duración de campaña para que sea aplicada a todos los cupones </p>
-                        <button onclick="showModal('bulkDate')" class="flex mt-2 mb-5 px-3 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white w-11 m-auto">
+                        <button onclick="showModal('bulkDate')" class="flex mt-2 mb-5 px-3 py-2 bg-blue-200 hover:bg-blue-300 rounded-md text-white w-11 m-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-month" width="20" height="25" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
@@ -135,7 +135,7 @@
                               </svg>
                         </button>
                         <p class="col-span-4 mt-1">Hacer públicos todos los cupones validos </p>
-                        <button onclick="showModal('bulkPublic')" class="flex mt-2 mb-5 px-3 py-2 bg-green-600 hover:bg-green-700 rounded-md text-white w-11 m-auto">
+                        <button onclick="showModal('bulkPublic')" class="flex mt-2 mb-5 px-3 py-2 bg-green-200 hover:bg-green-300 rounded-md text-white w-11 m-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checklist" width="30" height="25" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
@@ -147,9 +147,9 @@
                     </div>
                     <hr>
                     <div class="mt-2 flex">
-                        <a href="{{ route('corporate.wallets.view.expired', $wallet->id) }}" class="flex text-blue-600">
+                        <a href="{{ route('corporate.wallets.view', $wallet->id) }}" class="flex text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M11.933 5h-6.933v16h13v-8"></path> <path d="M14 17h-5"></path> <path d="M9 13h5v-4h-5z"></path> <path d="M15 5v-2"></path> <path d="M18 6l2 -2"></path> <path d="M19 9h2"></path> </svg> 
-                            <span class="text-lg ml-3">Ver Cupones Expirados</span>
+                            <span class="text-lg ml-3">Ver Cupones Activos</span>
                         </a>
                     </div>
                 </div>
@@ -166,11 +166,11 @@
             </a>
         </div>
 
-        <p class="text-xl font-bold mt-5">Coupones Activos</p>
+        <p class="text-xl font-bold mt-5">Coupones Expirados</p>
         <div class="grid sm:grid-cols-2 pb-16">
-            @if ($coupons->where('is_active',1)->where('campain_finishes', '>=', $date)->count() > 0)
+            @if ($coupons->where('is_active',1)->count() > 0)
                 @foreach ($coupons as $coupon)
-                    @if ($coupon->is_active && $coupon->campain_finishes >= $date)
+                    @if ($coupon->is_active)
                         <x-coupon
                             id="{{ $coupon->id }}"
                             type="{{ $coupon->type }}"
@@ -185,225 +185,11 @@
                 @endforeach
             @else
                 <x-bladewind::alert show_close_icon="false" class="col-span-2 mx-3 mt-2">
-                    No hay cupones activos
+                    No hay cupones expirados
                 </x-bladewind::alert>
             @endif
         </div>
-        <hr>
-        <p class="text-xl font-bold mt-3">Coupones Inactivos</p>
-        <div class="grid sm:grid-cols-2 pb-16">
-            @if ($coupons->where('is_active',0)->count() > 0)
-                @foreach ($coupons as $coupon)
-                    @if (! $coupon->is_active)
-                        <x-coupon
-                            id="{{ $coupon->id }}"
-                            type="{{ $coupon->type }}"
-                            tag="{{ $coupon->tag }}"
-                            valid="Consulte validez en interior">
-                            <x-slot name="image">
-                                {{ $coupon->image }}
-                            </x-slot>
-                            {{ $coupon->name }}
-                        </x-coupon>                    
-                    @endif
-                @endforeach
-            @else
-            <x-bladewind::alert show_close_icon="false" class="col-span-2 mx-3 mt-2">
-                No hay cupones inactivos
-            </x-bladewind::alert>
-
-            @endif
-        </div>
-
 
     </x-bladewind::centered-content>
-    <x-bladewind::modal
-        title="Editar información de Cuponera"
-        name="update"
-        size="large"
-        centerActionButtons="false"
-        okButtonLabel=""
-        cancelButtonLabel="Cerrar"
-        >
-        <hr class="mb-7 mt-1">
-        <form action="{{ route('corporate.wallets.update', $wallet->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <x-input-block type="text" placeholder="Ej. Súper Mexicali" name="name">
-                Nombre de la Cuponera (Opcional)
-            </x-input-block>
 
-            <div class="mb-2">
-                <p class="text-lg ml-2 mb-2 font-semibold">Visibilidad (Opcional)</p>
-                <input type="radio" id="true" name="is_public" value="true">
-                <label for="true" class="mr-4">Pública</label>
-                <input type="radio" id="false" name="is_public" value="false">
-                <label for="false">Oculta</label>
-            </div>
-
-            <div class="mb-0.5">
-                <p class="text-lg ml-2 mb-2 font-semibold">Imagen (Opcional)</p>
-                <input class="block w-full text-sm text-gray-900" id="file" name="file" type="file">
-            </div>
-
-
-            <input 
-                type="submit" 
-                class="flex my-5 ml-2 px-3 py-2 bg-red-500 rounded-md text-white cursor-pointer hover:bg-red-600" 
-                value="Actualizar">
-        </form>
-
-    </x-bladewind::modal>
-
-    <x-bladewind::modal
-        title="Edición Masiva"
-        name="bulkDays"
-        size="large"
-        centerActionButtons="false"
-        okButtonLabel=""
-        cancelButtonLabel="Cerrar"
-        >
-        <hr class="mb-7 mt-1">
-        <form action="{{ route('corporate.wallets.bulk.days', $wallet->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="max-w-lg px-2 m-auto">    
-
-                <div class="grid grid-cols-7 my-8">
-    
-                    <label for="day1" class="text-center select-none">Lunes</label>
-                    <label for="day2" class="text-center select-none">Martes</label>
-                    <label for="day3" class="text-center select-none">Miercoles</label>
-                    <label for="day4" class="text-center select-none">Jueves</label>
-                    <label for="day5" class="text-center select-none">Viernes</label>
-                    <label for="day6" class="text-center select-none">Sábado</label>
-                    <label for="day7" class="text-center select-none">Domingo</label>
-    
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day1"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_monday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day2"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_tuesday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day3"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_wednesday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day4"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_thursday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day5"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_friday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day6"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_saturday"
-                            value="1"/>
-                    </div>
-                    <div class="inline-block m-auto">
-                        <input
-                            id="day7"
-                            class="relative float-left mt-[0.15rem] p-4 rounded-[35%] border-[0.125rem] border-solid border-neutral-300 hover:cursor-pointer"
-                            type="checkbox"
-                            name="is_valid_sunday"
-                            value="1"/>
-                    </div>
-                  
-                </div>
-
-                <input
-                    type="submit"
-                    class="flex w-full my-5 px-3 py-2 bg-red-500 rounded-md text-white hover:cursor-pointer"
-                    value="Aplicar">
-
-            </div>
-        </form>
-
-    </x-bladewind::modal>
-
-    <x-bladewind::modal
-        title="Edición Masiva"
-        name="bulkDate"
-        size="large"
-        centerActionButtons="false"
-        okButtonLabel=""
-        cancelButtonLabel="Cerrar"
-        >
-        <hr class="mb-7 mt-1">
-        <form action="{{ route('corporate.wallets.bulk.date', $wallet->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="max-w-lg px-2 m-auto">    
-                <p class="mt-5 mb-2 font-semibold text-xl">Duración de campaña</p>
-                <div class="grid grid-cols-2">
-                    <label class="ml-4 select-none" for="campain_starts">Inicio</label>
-                    <label class="ml-4 select-none" for="campain_finishes">Acaba</label>
-                    <input class="mx-2" type="date" name="campain_starts" id="campain_starts" required>
-                    <input class="mx-2" type="date" name="campain_finishes" id="campain_finishes" required>
-                </div>
-
-                <input
-                    type="submit"
-                    class="flex w-full my-5 px-3 py-2 bg-red-500 rounded-md text-white hover:cursor-pointer"
-                    value="Aplicar">
-    
-            </div>
-        </form>
-
-    </x-bladewind::modal>
-
-    <x-bladewind::modal
-        title="Edición Masiva"
-        name="bulkPublic"
-        size="large"
-        centerActionButtons="false"
-        okButtonLabel=""
-        cancelButtonLabel="Cerrar"
-        >
-        <hr class="mb-7 mt-1">
-        <form action="{{ route('corporate.wallets.bulk.public', $wallet->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="max-w-lg px-2 m-auto">    
-                <p class="mt-5 mb-2 ml-1 font-semibold text-xl">Publicar todos los cupones válidos</p>
-                <x-bladewind::alert
-                    show_close_icon="false"
-                    type="warning">
-                    Al proceder hará públicos todos los cupones que tengan definidos días de validez y se les haya asignado una fecha de inicio y fin de campaña
-                </x-bladewind::alert>
-                <input
-                    type="submit"
-                    class="flex w-full my-5 px-3 py-2 bg-red-500 rounded-md text-white hover:cursor-pointer"
-                    value="Hacer públicos">
-
-            </div>
-        </form>
-
-    </x-bladewind::modal>
 </x-app-layout>

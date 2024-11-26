@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\RedeemedCoupon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
+use Illuminate\Support\Carbon;
 
 class WalletsController extends Controller
 {
@@ -21,6 +22,8 @@ class WalletsController extends Controller
 
     public function view($id)
     {
+        $date = Carbon::today()->toDateString();
+
         $wallet = Wallet::findOrFail($id);
         $brand = $wallet->brand()->first();
         $coupons = $wallet->coupons()->get();
@@ -29,7 +32,26 @@ class WalletsController extends Controller
             return redirect()->route('corporate.brands');
         }
 
-        return view('admin.wallets.view', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand]);
+        return view('admin.wallets.view', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand, 'date' => $date]);
+    }
+
+    public function viewExpired($id)
+    {
+        $date = Carbon::today()->toDateString();
+
+        $wallet = Wallet::findOrFail($id);
+        $brand = $wallet->brand()->first();
+
+        $coupons = $wallet->coupons()
+            ->where('is_active', 1)
+            ->where('campain_finishes', '<=', $date)
+            ->get();
+
+        if(auth()->user()->corporate_id != $brand->corporate_id){
+            return redirect()->route('corporate.brands');
+        }
+
+        return view('admin.wallets.view-expired', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand]);
     }
 
     public function store(Request $request, $id)
