@@ -145,13 +145,6 @@
                             </svg>
                         </button>
                     </div>
-                    <hr>
-                    <div class="mt-2 flex">
-                        <a href="{{ route('corporate.wallets.view.expired', $wallet->id) }}" class="flex text-blue-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2"> <path d="M11.933 5h-6.933v16h13v-8"></path> <path d="M14 17h-5"></path> <path d="M9 13h5v-4h-5z"></path> <path d="M15 5v-2"></path> <path d="M18 6l2 -2"></path> <path d="M19 9h2"></path> </svg> 
-                            <span class="text-lg ml-3">Ver Cupones Expirados</span>
-                        </a>
-                    </div>
                 </div>
             </div>
             <a href="{{ route('corporate.wallets.coupon.add', $wallet->id) }}" class='break-inside bg-red-500 rounded-xl p-4 mb-4 w-full'>
@@ -164,24 +157,26 @@
                   <span class='text-base font-medium text-white'>Agregar cupón nuevo</span>
                 </div>
             </a>
+            <div class="flex">
+                <x-corporate.wallets.coupons-nav :wallet="$wallet"/>
+            </div>
+
         </div>
 
         <p class="text-xl font-bold mt-5">Coupones Activos</p>
         <div class="grid sm:grid-cols-2 pb-16">
-            @if ($coupons->where('is_active',1)->where('campain_finishes', '>=', $date)->count() > 0)
-                @foreach ($coupons as $coupon)
-                    @if ($coupon->is_active && $coupon->campain_finishes >= $date)
-                        <x-coupon
-                            id="{{ $coupon->id }}"
-                            type="{{ $coupon->type }}"
-                            tag="{{ $coupon->tag }}"
-                            valid="Consulte validez en interior">
-                            <x-slot name="image">
-                                {{ $coupon->image }}
-                            </x-slot>
-                            {{ $coupon->name }}
-                        </x-coupon>                    
-                    @endif
+            @if ($active_coupons->count() > 0)
+                @foreach ($active_coupons as $coupon)
+                    <x-coupon
+                        id="{{ $coupon->id }}"
+                        type="{{ $coupon->type }}"
+                        tag="{{ $coupon->tag }}"
+                        valid="Consulte validez en interior">
+                        <x-slot name="image">
+                            {{ $coupon->image }}
+                        </x-slot>
+                        {{ $coupon->name }}
+                    </x-coupon>                    
                 @endforeach
             @else
                 <x-bladewind::alert show_close_icon="false" class="col-span-2 mx-3 mt-2">
@@ -192,8 +187,8 @@
         <hr>
         <p class="text-xl font-bold mt-3">Coupones Inactivos</p>
         <div class="grid sm:grid-cols-2 pb-16">
-            @if ($coupons->where('is_active',0)->count() > 0)
-                @foreach ($coupons as $coupon)
+            @if ($inactive_coupons->count() > 0)
+                @foreach ($inactive_coupons as $coupon)
                     @if (! $coupon->is_active)
                         <x-coupon
                             id="{{ $coupon->id }}"

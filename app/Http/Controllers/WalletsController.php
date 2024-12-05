@@ -26,32 +26,45 @@ class WalletsController extends Controller
 
         $wallet = Wallet::findOrFail($id);
         $brand = $wallet->brand()->first();
-        $coupons = $wallet->coupons()->get();
+        $active_coupons = $wallet->coupons()
+            ->where('is_active', 1)
+            ->where('campain_starts', '<=', $date) // Campaign starts today or earlier date
+            ->where('campain_finishes', '>=', $date) // Campaign finishes today or later date
+            ->get();
+        $inactive_coupons = $wallet->coupons()->where('is_active',0)->get();
 
         if(auth()->user()->corporate_id != $brand->corporate_id){
             return redirect()->route('corporate.brands');
         }
 
-        return view('admin.wallets.view', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand, 'date' => $date]);
+        return view('admin.wallets.view', compact('wallet', 'active_coupons', 'inactive_coupons', 'brand'));
     }
 
-    public function viewExpired($id)
+    public function viewFiltered($id, $type)
     {
         $date = Carbon::today()->toDateString();
-
         $wallet = Wallet::findOrFail($id);
         $brand = $wallet->brand()->first();
-
-        $coupons = $wallet->coupons()
-            ->where('is_active', 1)
-            ->where('campain_finishes', '<=', $date)
-            ->get();
-
-        if(auth()->user()->corporate_id != $brand->corporate_id){
+    
+        // Check corporate access
+        if (auth()->user()->corporate_id != $brand->corporate_id) {
             return redirect()->route('corporate.brands');
         }
-
-        return view('admin.wallets.view-expired', ['wallet' => $wallet, 'coupons' => $coupons, 'brand' => $brand]);
+    
+        // Determine coupon filtering logic based on type
+        $coupons = $wallet->coupons()
+            ->where('is_active', 1)
+            ->when($type === 'expired', function ($query) use ($date) {
+                return $query->where('campain_finishes', '<=', $date);
+            })
+            ->when($type === 'future', function ($query) use ($date) {
+                return $query->where('campain_starts', '>=', $date);
+            })
+            ->get();
+    
+        $title = $type === 'expired' ? 'expirados' : 'futuros';
+    
+        return view('admin.wallets.view-filtered', compact('wallet', 'coupons', 'brand', 'title'));
     }
 
     public function store(Request $request, $id)
