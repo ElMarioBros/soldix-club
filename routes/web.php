@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\CorporatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BrandsController;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\ClerkController;
 use App\Http\Controllers\StoresController;
 use App\Http\Controllers\WalletsController;
 use App\Http\Controllers\CouponsController;
@@ -78,8 +80,16 @@ Route::middleware(['auth', 'verified', 'is_corporate'])->group(function () {
     Route::patch('/corporate/wallets/{id}/bulk-days', [WalletsController::class, 'bulkEditDays'])->name('corporate.wallets.bulk.days');
     Route::patch('/corporate/wallets/{id}/bulk-public', [WalletsController::class, 'bulkEditPublic'])->name('corporate.wallets.bulk.public');
     Route::get('/corporate/wallets/{id}/add', [CouponsController::class, 'add_to_wallet'])->name('corporate.wallets.coupon.add');
+
+    // CLERKS
+    Route::resource('clerks', ClerkController::class);
+
 });
 // END CORPORATE
+
+// CLERK
+Route::resource('cards', CardController::class);
+// END CLERK
 
 // SUPERADMIN
 Route::middleware(['auth', 'verified', 'is_admin'])->group(function () {

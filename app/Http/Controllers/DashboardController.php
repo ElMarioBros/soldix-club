@@ -24,6 +24,10 @@ class DashboardController extends Controller
             return redirect()->route('pos');
         }
 
-        return redirect()->route('wallet');
+        if (auth()->user()->role_id == Role::IS_CLERK) {
+            return redirect()->route('cards.index');
+        }
+
+        //return redirect()->route('wallet');
     }
 }

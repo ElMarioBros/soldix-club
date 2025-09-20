@@ -45,6 +45,10 @@
                             {{ __('Cuponeras') }}
                         </x-nav-link>
 
+                        <x-nav-link :href="route('clerks.index')"  :active="request()->routeIs('clerks.index') || request()->routeIs('clerks.create')">
+                            Capturistas
+                        </x-nav-link>
+
                         <x-nav-link :href="route('corporate.wallets')" style="color:#b5b5b5; cursor: not-allowed;">
                             {{ __('Reserva') }}
                         </x-nav-link>
@@ -167,6 +171,10 @@
                 
                 <x-responsive-nav-link :href="route('corporate.wallets')">
                     {{ __('Cuponeras') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('clerks.index')">
+                    Capturistas
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('corporate.wallets')" style="color:#b5b5b5; cursor: not-allowed;">
