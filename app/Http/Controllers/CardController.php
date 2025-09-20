@@ -6,7 +6,9 @@ use App\Models\Card;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class CardController extends Controller
 {
@@ -72,7 +74,9 @@ class CardController extends Controller
      */
     public function show(Card $card)
     {
-        //
+        $card->load('user');
+
+        return view('cards.show', compact('card'));
     }
 
     /**
@@ -80,7 +84,8 @@ class CardController extends Controller
      */
     public function edit(Card $card)
     {
-        //
+        $card->load('user');
+        return view('cards.edit', compact('card'));
     }
 
     /**
@@ -88,7 +93,34 @@ class CardController extends Controller
      */
     public function update(Request $request, Card $card)
     {
-        //
+        $validated = $request->validate([
+            'name'        => ['required', 'string', 'max:255'],
+            'phone'       => ['required', 'digits:10'],
+            'gender'      => ['required', Rule::in(['masculino','femenino'])],
+            'age'         => ['required', 'integer', 'min:18', 'max:100'],
+            'occupation'  => ['required', 'string', 'max:255'],
+            'login_code'  => ['required', 'digits:4'],
+            'public_code' => ['required', 'string', 'max:255', Rule::unique('cards', 'public_code')->ignore($card->id)],
+        ]);
+
+        DB::transaction(function () use ($card, $validated) {
+            // Actualiza el user asociado
+            $card->user->update([
+                'name'       => $validated['name'],
+                'phone'      => $validated['phone'],
+                'gender'     => $validated['gender'],
+                'age'        => $validated['age'],
+                'occupation' => $validated['occupation'],
+            ]);
+
+            // Actualiza la card
+            $card->update([
+                'login_code'  => $validated['login_code'],
+                'public_code' => $validated['public_code'],
+            ]);
+        });
+
+        return redirect()->route('cards.show', $card)->with('status', 'Cliente actualizado correctamente.');
     }
 
     /**
