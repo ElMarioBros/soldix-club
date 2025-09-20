@@ -20,6 +20,8 @@ class Role extends Model
 
     public const IS_ADMIN = 4;
 
+    public const IS_CLERK = 5;
+
     public function user(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
