@@ -10,6 +10,7 @@ use App\Http\Controllers\ClerkController;
 use App\Http\Controllers\StoresController;
 use App\Http\Controllers\WalletsController;
 use App\Http\Controllers\CouponsController;
+use App\Http\Controllers\UserLoginController;
 use Illuminate\Support\Facades\Route;
 
 // HOME
@@ -24,7 +25,7 @@ Route::get('/coupons/{id}', [CouponsController::class, 'view'])->name('coupon');
 
 // USER
 Route::middleware(['auth', 'verified', 'is_user'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('/home-disabled', function () {
         return view('user.index');
     })->name('home');
 
@@ -108,5 +109,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('user/login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
+Route::post('user/login', [UserLoginController::class, 'login'])->name('user.login.submit');
+Route::post('user/logout', [UserLoginController::class, 'logout'])->name('user.logout');
 
 require __DIR__.'/auth.php';

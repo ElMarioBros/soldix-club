@@ -29,7 +29,7 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar sesión</a>
+                        <a href="{{ route('user.login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar sesión</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarme</a>
@@ -43,7 +43,7 @@
                     image="https://res.cloudinary.com/de6hiq5n4/image/upload/v1682900896/assets/soldix/a_n87auu.jpg">
 
                     <p class="pb-4">Soldix club</p>
-                    <a href="{{ route('login') }}">
+                    <a href="{{ route('user.login') }}">
                         <x-bladewind::button color="red" size="small">
                             Entrar
                         </x-bladewind::button>
