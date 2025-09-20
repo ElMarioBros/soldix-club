@@ -11,6 +11,7 @@ use App\Http\Controllers\StoresController;
 use App\Http\Controllers\WalletsController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\UserLoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // HOME
