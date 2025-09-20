@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CardController extends Controller
 {
@@ -12,7 +15,11 @@ class CardController extends Controller
      */
     public function index()
     {
-        return view('cards.index');
+        return view('cards.index', [
+            'users' => auth()->user()->corporate->users
+                ->where('role_id', Role::IS_USER)
+                ->sortByDesc('created_at')
+        ]);
     }
 
     /**
@@ -20,7 +27,7 @@ class CardController extends Controller
      */
     public function create()
     {
-        //
+        return view('cards.create');
     }
 
     /**
@@ -28,7 +35,36 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $corporate = auth()->user()->corporate;
+
+        $validated = $request->validate([
+            'name'        => ['required', 'string', 'max:255'],
+            'phone'       => ['required', 'digits:10'],
+            'gender'      => ['required', 'in:masculino,femenino'],
+            'age'         => ['required', 'integer', 'min:18', 'max:100'],
+            'occupation'  => ['required', 'string', 'max:255'],
+            'login_code'  => ['required', 'digits:4'],
+            'public_code' => ['required', 'string', 'max:255', 'unique:cards,public_code'],
+        ]);
+
+        $user = $corporate->users()->create([
+            'name'         => $validated['name'],
+            'password'     => 'null',
+            'role_id'      => Role::IS_USER,
+            'phone'        => $validated['phone'],
+            'gender'       => $request->gender,
+            'age'          => $validated['age'],
+            'occupation'   => $validated['occupation'],
+        ]);
+
+        $user->card()->create([
+            'login_code'  => $validated['login_code'],
+            'public_code' => $validated['public_code'],
+        ]);
+
+        return redirect()
+            ->route('cards.index')
+            ->with('status', 'Cliente y tarjeta registrados.');
     }
 
     /**

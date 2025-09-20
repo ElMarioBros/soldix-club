@@ -109,14 +109,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// TESTS
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/test-select-gadget', function () {
-    return view('test-select-gadget');
-});
-// END TESTS
-
 require __DIR__.'/auth.php';
