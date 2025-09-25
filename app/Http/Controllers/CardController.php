@@ -18,9 +18,10 @@ class CardController extends Controller
     public function index()
     {
         return view('cards.index', [
-            'users' => auth()->user()->corporate->users
+            'users' => auth()->user()->corporate->users()
                 ->where('role_id', Role::IS_USER)
-                ->sortByDesc('created_at')
+                ->orderBy('created_at', 'desc')
+                ->paginate(50)
         ]);
     }
 

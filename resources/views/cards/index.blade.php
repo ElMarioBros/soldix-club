@@ -104,6 +104,9 @@
                 <div class="text-center text-gray-500">No hay clientes registrados.</div>
             @endforelse
         </div>
-
+        
+        <div class="mt-6">
+            {{ $users->links() }}
+        </div>
     </div>
 </x-app-layout>
