@@ -24,26 +24,26 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nombre</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Código tarjeta</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">PIN</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Celular</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Género</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Edad</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ocupación</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">PIN</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Código tarjeta</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Registrado</th>
                         <th class="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
+                <tbody class="bg-white divide-y divide-gray-300">
                     @forelse ($users as $user)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $user->name }}</td>
+                            <td class="px-6 py-4 text-xl text-gray-800">{{ optional($user->card)->public_code ?? '-' }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">{{ optional($user->card)->login_code ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm text-gray-700">{{ $user->phone }}</td>
                             <td class="px-6 py-4 text-sm text-gray-700">{{ ucfirst($user->gender) }}</td>
                             <td class="px-6 py-4 text-sm text-gray-700">{{ $user->age }}</td>
                             <td class="px-6 py-4 text-sm text-gray-700">{{ $user->occupation }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-700">{{ optional($user->card)->login_code ?? '-' }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-700">{{ optional($user->card)->public_code ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm text-gray-500">{{ optional($user->created_at)->format('d/m/Y') ?? '-' }}</td>
                             <td class="px-6 py-4 text-right text-sm">
                                 @if($user->card)
