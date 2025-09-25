@@ -30,7 +30,29 @@ class CardController extends Controller
      */
     public function create()
     {
-        return view('cards.create');
+        $occupations = [
+            'ama_casa' => 'Ama de Casa',
+            'personal_operativo' => 'Personal Operativo de Fábrica',
+            'supervision_produccion' => 'Supervisión / Coordinación de Producción',
+            'gerencia_industrial' => 'Gerencia / Dirección Industrial',
+            'jubilado' => 'Jubilado',
+            'desempleado' => 'Desempleado',
+            'estudiante' => 'Estudiante',
+            'cajero_abarrote' => 'Cajero / Abarrotista',
+            'guardia' => 'Guardia de Seguridad',
+            'contador' => 'Empleado de Oficina',
+            'independiente' => 'Trabajador Independiente',
+            'empresario' => 'Empresario',
+            'profesional_salud' => 'Profesional de la Salud',
+            'profesor' => 'Profesor / Docente',
+            'policia' => 'Policía',
+            'chofer' => 'Chofer / Conductor',
+            'agricultor' => 'Agricultor / Campesino',
+            'comerciante' => 'Comerciante',
+            'otro' => 'Otro',
+        ];
+
+        return view('cards.create', ['occupations' => $occupations]);
     }
 
     /**

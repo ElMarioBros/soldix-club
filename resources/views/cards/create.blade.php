@@ -29,6 +29,7 @@
                             name="name"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                             placeholder="Ingrese su nombre completo"
+                            value="{{ old('name') }}"
                             required
                         />
                         @error('name')
@@ -55,6 +56,7 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                             placeholder="Ej: 686 456 7890"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 10)"
+                            value="{{ old('phone') }}"
                             required
                         />
                         @error('phone')
@@ -79,8 +81,8 @@
                                 required
                             >
                                 <option value="">Seleccionar</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
+                                <option value="masculino" {{ old('gender') == 'masculino' ? 'selected' : '' }}>Masculino</option>
+                                <option value="femenino" {{ old('gender') == 'femenino' ? 'selected' : '' }}>Femenino</option>
                             </select>
                             @error('gender')
                             <p class="text-red-500 text-xs mt-1 flex items-center">
@@ -103,6 +105,7 @@
                                 max="100"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                                 placeholder="Edad"
+                                value="{{ old('age') }}"
                                 required
                             />
                             @error('age')
@@ -127,27 +130,11 @@
                             required
                         >
                             <option value="">Seleccione su ocupación</option>
-
-                            <option value="ama_casa">Ama de Casa</option>
-                            <!-- Industria -->
-                            <option value="personal_operativo">Personal Operativo de Fábrica</option>
-                            <option value="supervision_produccion">Supervisión / Coordinación de Producción</option>
-                            <option value="gerencia_industrial">Gerencia / Dirección Industrial</option>
-                            
-                            <!-- Profesiones generales -->
-                            <option value="jubilado">Jubilado</option>
-                            <option value="desempleado">Desempleado</option>
-                            <option value="estudiante">Estudiante</option>
-                            <option value="contador">Empleado de Oficinia</option>
-                            <option value="independiente">Trabajador Independiente</option>
-                            <option value="empresario">Empresario</option>
-                            <option value="profesional_salud">Profesional de la Salud</option>
-                            <option value="profesor">Profesor / Docente</option>
-                            <option value="policia">Policía</option>
-                            <option value="chofer">Chofer / Conductor</option>
-                            <option value="agricultor">Agricultor / Campesino</option>
-                            <option value="comerciante">Comerciante</option>
-                            <option value="otro">Otro</option>
+                            @foreach($occupations as $value => $label)
+                                <option value="{{ $value }}" {{ old('occupation') == $value ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('occupation')
                         <p class="text-red-500 text-xs mt-1 flex items-center">
@@ -173,6 +160,7 @@
                             class="w-full h-16 text-xl text-center px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 focus:bg-white font-mono"
                             placeholder="Ingrese el Pin del Usuario"
                             oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)"
+                            value="{{ old('login_code') }}"
                             required
                         />
                         @error('login_code')
