@@ -64,7 +64,7 @@ class CardController extends Controller
 
         $validated = $request->validate([
             'name'        => ['required', 'string', 'max:255'],
-            'phone'       => ['required', 'digits:10'],
+            'phone'       => ['unique:users,phone', 'required', 'digits:10'],
             'gender'      => ['required', 'in:masculino,femenino'],
             'age'         => ['required', 'integer', 'min:18', 'max:100'],
             'occupation'  => ['required', 'string', 'max:255'],
