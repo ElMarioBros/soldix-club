@@ -21,7 +21,7 @@ class CardController extends Controller
             'users' => auth()->user()->corporate->users()
                 ->where('role_id', Role::IS_USER)
                 ->orderBy('created_at', 'desc')
-                ->paginate(50)
+                ->paginate(30)
         ]);
     }
 
