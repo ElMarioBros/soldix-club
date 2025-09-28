@@ -15,7 +15,7 @@ class CorporatesController extends Controller
     public function index()
     {
         $corporates = (auth()->user()->role_id == Role::IS_CORPORATE)
-            ? auth()->user()->corporate->users()->get()
+            ? auth()->user()->corporate->users()->where('role_id', Role::IS_CORPORATE)->get()
             : Corporate::all();
 
         return view('admin.corporates', ['corporates' => $corporates]);
