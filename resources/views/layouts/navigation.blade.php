@@ -171,6 +171,10 @@
                     {{ __('Cuponeras') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link :href="route('analytics.index')">
+                    Analítica
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('clerks.index')">
                     Capturistas
                 </x-responsive-nav-link>
