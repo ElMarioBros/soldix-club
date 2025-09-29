@@ -12,4 +12,14 @@ class RedeemedCoupon extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminsController;
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\CorporatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BrandsController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\StoresController;
 use App\Http\Controllers\WalletsController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\UserLoginController;
+use Cloudinary\Asset\Analytics;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +84,9 @@ Route::middleware(['auth', 'verified', 'is_corporate'])->group(function () {
     Route::patch('/corporate/wallets/{id}/bulk-days', [WalletsController::class, 'bulkEditDays'])->name('corporate.wallets.bulk.days');
     Route::patch('/corporate/wallets/{id}/bulk-public', [WalletsController::class, 'bulkEditPublic'])->name('corporate.wallets.bulk.public');
     Route::get('/corporate/wallets/{id}/add', [CouponsController::class, 'add_to_wallet'])->name('corporate.wallets.coupon.add');
+
+    // ANALYTICS
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
 
     // CLERKS
     Route::resource('clerks', ClerkController::class);

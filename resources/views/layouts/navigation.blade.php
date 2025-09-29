@@ -45,6 +45,10 @@
                             {{ __('Cuponeras') }}
                         </x-nav-link>
 
+                        <x-nav-link :href="route('analytics.index')"  :active="request()->routeIs('analytics.index')">
+                            Analitica
+                        </x-nav-link>
+
                         <x-nav-link :href="route('clerks.index')"  :active="request()->routeIs('clerks.index') || request()->routeIs('clerks.create')">
                             Capturistas
                         </x-nav-link>
@@ -60,12 +64,6 @@
                         <x-nav-link :href="route('corporate.wallets')" style="color:#b5b5b5; cursor: not-allowed;">
                             {{ __('Rifas') }}
                         </x-nav-link>
-
-                        <x-nav-link :href="route('corporate.wallets')" style="color:#b5b5b5; cursor: not-allowed;">
-                            {{ __('Promociones') }}
-                        </x-nav-link>
-                        
-
 
                     @endif
 
