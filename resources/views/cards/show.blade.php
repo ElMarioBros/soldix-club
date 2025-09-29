@@ -38,12 +38,14 @@
             <div class="border-t mt-6 pt-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Tarjeta</h3>
                 <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+                    @if (auth()->user()->role_id == App\Models\Role::IS_CLERK)
+                        <div>
+                            <dt class="font-medium text-gray-700">PIN de acceso</dt>
+                            <dd class="text-gray-900">{{ $card->login_code }}</dd>
+                        </div>
+                    @endif
                     <div>
-                        <dt class="font-medium text-gray-700">PIN de acceso</dt>
-                        <dd class="text-gray-900">{{ $card->login_code }}</dd>
-                    </div>
-                    <div>
-                        <dt class="font-medium text-gray-700">Código público</dt>
+                        <dt class="font-medium text-gray-700">Número de Tarjeta</dt>
                         <dd class="text-gray-900">{{ $card->public_code }}</dd>
                     </div>
                     <div class="md:col-span-2">
@@ -54,14 +56,21 @@
             </div>
 
             <div class="mt-8 flex justify-end space-x-3">
-                <a href="{{ route('cards.index') }}"
-                   class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
-                    Volver
-                </a>
-                <a href="{{ route('cards.edit', $card) }}"
-                   class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    Editar
-                </a>
+                @if (auth()->user()->role_id == App\Models\Role::IS_CLERK)
+                    <a href="{{ route('cards.index') }}"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                        Volver
+                    </a>
+                    <a href="{{ route('cards.edit', $card) }}"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        Editar
+                    </a>
+                @elseif (auth()->user()->role_id == App\Models\Role::IS_CORPORATE)
+                    <a href="{{ route('analytics.clients.index') }}"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                        < Volver
+                    </a>
+                @endif
                 {{-- <form action="{{ route('cards.destroy', $card) }}" method="POST" onsubmit="return confirm('¿Eliminar tarjeta?');">
                     @csrf
                     @method('DELETE')

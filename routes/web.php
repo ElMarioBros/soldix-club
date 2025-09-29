@@ -87,6 +87,7 @@ Route::middleware(['auth', 'verified', 'is_corporate'])->group(function () {
 
     // ANALYTICS
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
+    Route::get('/analytics/clients', [AnalyticsController::class, 'indexClients'])->name('analytics.clients.index');
 
     // CLERKS
     Route::resource('clerks', ClerkController::class);

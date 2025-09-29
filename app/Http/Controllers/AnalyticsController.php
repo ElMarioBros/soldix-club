@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\RedeemedCoupon;
 use App\Models\Coupon;
 use App\Models\Card;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -40,8 +41,7 @@ class AnalyticsController extends Controller
             ->take(5)
             ->get();
 
-        // Weekly redemptions (last 7 days)
-        $weeklyRedemptions = collect(range(0, 6))  // Changed from range(6, 0)
+        $weeklyRedemptions = collect(range(0, 6))
             ->map(function($days) {
                 return [
                     'date' => Carbon::now()->subDays($days),
@@ -101,8 +101,19 @@ class AnalyticsController extends Controller
             'weeklyRedemptions',
             'allCoupons',
             'recentRedemptions',
-            'totalRedemptions',     // Add these new variables
-            'todayRegisteredCards'  // to the compact array
+            'totalRedemptions',
+            'todayRegisteredCards'
         ));
     }
+
+    public function indexClients(): View 
+    {
+        return view('corporate.analytics.clients', [
+            'users' => auth()->user()->corporate->users()
+                ->where('role_id', Role::IS_USER)
+                ->orderBy('created_at', 'desc')
+                ->paginate(60)
+        ]);
+    }
+
 }
