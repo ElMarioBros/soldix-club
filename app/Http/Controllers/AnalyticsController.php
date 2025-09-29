@@ -108,11 +108,65 @@ class AnalyticsController extends Controller
 
     public function indexClients(): View 
     {
+        $corporate = auth()->user()->corporate;
+        
+        // Create base query builder that we'll clone for different purposes
+        $baseQuery = $corporate->users()
+            ->where('role_id', Role::IS_USER);
+
+        // Get all stats in a single query for better performance
+        $basicStats = (clone $baseQuery)
+            ->select([
+                DB::raw('COUNT(*) as total'),
+                DB::raw('SUM(CASE WHEN DATE(created_at) = CURDATE() THEN 1 ELSE 0 END) as today'),
+                DB::raw('SUM(CASE WHEN DATE(created_at) = CURDATE() - INTERVAL 1 DAY THEN 1 ELSE 0 END) as yesterday')
+            ])
+            ->first();
+
+        // Get distributions in a single query
+        $distributions = (clone $baseQuery)
+            ->select([
+                'gender',
+                'occupation',
+                'age',
+                DB::raw('COUNT(*) as count')
+            ])
+            ->whereNotNull('gender')
+            ->groupBy('gender', 'occupation', 'age')
+            ->get();
+
+        // Process the distributions data
+        $genderDistribution = $distributions->groupBy('gender')
+            ->map->count()
+            ->toArray();
+
+        $occupationDistribution = $distributions->groupBy('occupation')
+            ->map->count()
+            ->sortDesc()
+            ->take(6)
+            ->toArray();
+
+        // Process age ranges
+        $ageRanges = [
+            '18-24' => [18, 24],
+            '25-34' => [25, 34],
+            '35-44' => [35, 44],
+            '45-54' => [45, 54],
+            '55+' => [55, 150]
+        ];
+
+        $ageDistribution = array_map(function($range) use ($distributions) {
+            return $distributions->whereBetween('age', $range)->count();
+        }, $ageRanges);
+
         return view('corporate.analytics.clients', [
-            'users' => auth()->user()->corporate->users()
-                ->where('role_id', Role::IS_USER)
-                ->orderBy('created_at', 'desc')
-                ->paginate(60)
+            'users' => (clone $baseQuery)->orderBy('created_at', 'desc')->paginate(35),
+            'totalUsers' => $basicStats->total,
+            'todayUsers' => $basicStats->today,
+            'yesterdayUsers' => $basicStats->yesterday,
+            'genderDistribution' => $genderDistribution,
+            'ageDistribution' => $ageDistribution,
+            'occupationDistribution' => $occupationDistribution
         ]);
     }
 

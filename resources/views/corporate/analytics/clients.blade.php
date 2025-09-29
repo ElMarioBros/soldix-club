@@ -6,13 +6,52 @@
     </x-slot>
 
     <div class="max-w-6xl mx-auto mt-6 px-4 mb-12">
-
         <div class="my-5">
             <a href="{{ route('analytics.index') }}" class="px-4 py-2 bg-red-500 font-bold text-white rounded-md hover:bg-red-600">
                 < Volver al panel general
             </a>
         </div>
 
+        <!-- Basic Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">Distribución por Género</h3>
+                <div class="space-y-2">
+                    @foreach($genderDistribution as $gender => $count)
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{{ ucfirst($gender ?: 'Sin Información') }}</span>
+                            <span class="font-semibold">{{ $count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">Distribución por Edad</h3>
+                <div class="space-y-2">
+                    @foreach($ageDistribution as $range => $count)
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{{ $range }}</span>
+                            <span class="font-semibold">{{ $count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">Principales Ocupaciones</h3>
+                <div class="space-y-2">
+                    @foreach($occupationDistribution as $occupation => $count)
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{{ $occupation ?: 'No especificado' }}</span>
+                            <span class="font-semibold">{{ $count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing table content -->
         <div class="hidden md:block bg-white shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
